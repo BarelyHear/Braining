@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
 
+    FirebaseUser user;
+
     FirebaseAuth mAuth;
 
     @Override
@@ -39,7 +41,17 @@ public class LoginActivity extends AppCompatActivity {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.GoogleBuilder().build());
 
-// Create and launch sign-in intent
+        Log.d("Login: ", "Checking If User Is Logged In");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Log.d("Login: ", "User Is Already Logged In");
+            Log.d("Login: ", "Switching Intent To MainActivity");
+            Intent foo = new Intent(this, MainActivity.class);
+            startActivity(foo);
+
+        }
+        Log.d("Login: ", "User Was Not Logged In");
+        // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
@@ -61,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             // Successfully signed in
             // ...
             Log.wtf("Login: ", "Login Successful");
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            user = FirebaseAuth.getInstance().getCurrentUser();
             Log.wtf("Login: ", "Got User");
             Intent foo = new Intent(this, MainActivity.class);
             Log.wtf("Login: ", "Main Intent Created");

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+
         /*
         Log.wtf("Main: ", "Setting Support Action Bar");
         //setSupportActionBar(binding.appBarMain.toolbar);
