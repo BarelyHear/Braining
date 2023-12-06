@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
             Intent foo = new Intent(this, MainActivity.class);
             startActivity(foo);
 
+        } else {
+            Log.d("Login: ", "User Was Not Logged In");
         }
         // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()
