@@ -30,12 +30,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+        /*
         Log.wtf("Main: ", "Setting Support Action Bar");
         //setSupportActionBar(binding.appBarMain.toolbar);
         Log.wtf("Main: ", "Action Bar Successful");
 
         Log.wtf("Main: ", "Binding Click Listener for Action Bar");
-        /*
+
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-         */
-
         Log.wtf("Main: ", "Action Bar Bound Successfully");
+        */
+        Log.d("Main: ", "Setting Up Navigation");
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        Log.d("Main: ", "Navigation Set Up Correctly");
     }
 
     @Override
