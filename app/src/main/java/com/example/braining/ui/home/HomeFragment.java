@@ -1,5 +1,8 @@
 package com.example.braining.ui.home;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,18 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        Canvas canvas = new Canvas();
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+
+            }
+        }
+
+
+
         return root;
     }
 

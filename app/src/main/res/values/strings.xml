@@ -11,4 +11,5 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="log_in">Log In</string>
+    <string name="game_explanation">This game is all about memorization. Press Start, memorize the pattern, and replicate it.</string>
 </resources>
