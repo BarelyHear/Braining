@@ -44,13 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("Login: ", "Checking If User Is Logged In");
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            Log.d("Login: ", "User Is Already Logged In");
+            Log.d("Login: ", "User Is Already Logged In As: " + user.getEmail());
             Log.d("Login: ", "Switching Intent To MainActivity");
             Intent foo = new Intent(this, MainActivity.class);
             startActivity(foo);
 
         }
-        Log.d("Login: ", "User Was Not Logged In");
         // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
