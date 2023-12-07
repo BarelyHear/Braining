@@ -101,6 +101,7 @@ public class GalleryFragment extends Fragment {
             tb.setChecked(false);
             tb.setBackgroundColor(Color.BLACK);
         }
+        start.setText("Check Score");
         start.setOnClickListener(v -> {
             scorePlayer();
         });

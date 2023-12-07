@@ -30,14 +30,6 @@ public class HomeFragment extends Fragment {
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        Canvas canvas = new Canvas();
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-            }
-        }
 
 
 
