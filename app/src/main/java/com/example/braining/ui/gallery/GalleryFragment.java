@@ -1,5 +1,7 @@
 package com.example.braining.ui.gallery;
 
+import static com.example.braining.R.drawable.*;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,62 +11,78 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import android.widget.ViewFlipper;
+
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.example.braining.databinding.FragmentGalleryBinding;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class GalleryFragment extends Fragment {
 
     private FragmentGalleryBinding binding;
 
+    TextView scoreDisplay, gameDesc;
 
-    TextView scoreDisplay;
+    ViewFlipper flipper;
+
     Boolean[] stored;
-    ToggleButton[] buttons;
+    ToggleButton[] toggleButtons;
 
-    Button start;
-
+    final String TAG = "GAMES: ";
+    Button start, incDifficulty;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         GalleryViewModel galleryViewModel =
                 new ViewModelProvider(this).get(GalleryViewModel.class);
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        gameDesc = binding.gameexplanation;
+        flipper = binding.flipper;
+
+        Log.d(TAG, "Entered successfully.");
+
 
         scoreDisplay = binding.scoredisplay;
 
         start = binding.startbutton;
 
-
         // Start of Game Code
-        buttons = new ToggleButton[]{
+        toggleButtons = new ToggleButton[]{
                 binding.btn1, binding.btn2, binding.btn3, binding.btn4,
                 binding.btn5, binding.btn6, binding.btn7, binding.btn8,
                 binding.btn9, binding.btn10, binding.btn11, binding.btn12,
                 binding.btn13, binding.btn14, binding.btn15, binding.btn16};
-        for (int y = 0; y < buttons.length; y++) {
-            final int why = y;
-            buttons[why].setOnClickListener(v -> {
-                buttons[why].setChecked(buttons[why].isChecked());
-                if (buttons[why].isChecked()) {
-                    buttons[why].setBackgroundColor(Color.BLUE);
+        for (int y = 0; y < toggleButtons.length; y++) {
+            final int constY = y;
+            toggleButtons[constY].setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (toggleButtons[constY].isChecked()) {
+                    toggleButtons[constY].setBackgroundResource(cell_button);
                 } else {
-                    buttons[why].setBackgroundColor(Color.BLACK);
+                    toggleButtons[constY].setBackgroundResource(cell_button_off);
                 }
             });
         }
-
+        Thread gameLoop = new Thread() {
+            @Override
+            public void run() {
+                randomizeButtons();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                playerTurn();
+            }
+        };
         start.setOnClickListener(v -> {
-            // Note that randomizeButtons is coupled to the game loop and so is not a drop in abstraction
-            randomizeButtons();
+            gameDesc.setBackgroundColor(Color.BLUE);
+            gameLoop.start();
         });
-
-
-
 
         return root;
     }
@@ -73,48 +91,58 @@ public class GalleryFragment extends Fragment {
         stored = new Boolean[16];
         Random random = new Random();
         int idx = 0;
-        for (ToggleButton tb : buttons) {
+        for (ToggleButton tb : toggleButtons) {
             tb.setChecked(random.nextBoolean());
             if (tb.isChecked()) {
-                Log.d("Game: ", "Active Button: " + tb.toString());
-
-                tb.setChecked(true);
-                tb.setBackgroundColor(Color.BLUE);
+                Log.d(TAG, "Active Button: " + tb.toString());
+                tb.setBackgroundResource(cell_button);
             } else {
-                Log.d("Game: ", "Inactive Button: " + tb.toString());
-                tb.setChecked(false);
-                tb.setBackgroundColor(Color.BLACK);
+                Log.d(TAG, "Inactive Button: " + tb.toString());
+                tb.setBackgroundResource(cell_button_off);
+
             }
 
             stored[idx] = tb.isChecked();
-            Log.d("Game: ", "stored sub " + idx + " is " + stored[idx]);
+            Log.d(TAG, "stored sub " + idx + " is " + stored[idx]);
             idx++;
         }
-        start.setText("Press Me For Your Turn");
-        start.setOnClickListener(v -> {
-            playerTurn();
-        });
     }
 
     private void playerTurn() {
-        for (ToggleButton tb : buttons) {
+        for (ToggleButton tb : toggleButtons) {
             tb.setChecked(false);
-            tb.setBackgroundColor(Color.BLACK);
+            tb.setBackgroundResource(cell_button_off);
         }
-        start.setText("Check Score");
-        start.setOnClickListener(v -> {
-            scorePlayer();
-        });
+
+        int potential = 0;
+        for (int i = 0; i < stored.length; i++) {
+            if (stored[i]) {
+                potential++;
+            }
+        }
+        final int resetPotential = potential;
+        for (int i = 0; i < toggleButtons.length; i++) {
+            if (!stored[i]) {
+                int finalI = i;
+                toggleButtons[i].setOnClickListener(v -> {
+                    toggleButtons[finalI].setBackgroundResource(cell_button_wrong_choice);
+                    playerLoses();
+                });
+            }
+        }
+    }
+
+    private void playerLoses() {
     }
 
     private void scorePlayer() {
         Integer score = 0;
         Integer potential = 0;
-        for (int i = 0; i < buttons.length; i++) {
-            if (buttons[i].isChecked() && stored[i].booleanValue()) {
+        for (int i = 0; i < toggleButtons.length; i++) {
+            if (toggleButtons[i].isChecked() && stored[i].booleanValue()) {
                 score++;
             }
-            if (buttons[i].isChecked() && !stored[i].booleanValue()) {
+            if (toggleButtons[i].isChecked() && !stored[i].booleanValue()) {
                 score--;
             }
             if (stored[i]) {
@@ -122,10 +150,6 @@ public class GalleryFragment extends Fragment {
             }
         }
         scoreDisplay.setText("Score: " + score + "/" + potential);
-        start.setText("Play Again");
-        start.setOnClickListener(v -> {
-            randomizeButtons();
-        });
     }
 
     @Override

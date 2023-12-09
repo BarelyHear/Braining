@@ -14,92 +14,93 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="50dp"
+        android:backgroundTint="@color/white"
         android:background="@color/design_default_color_primary_variant"
         >
         <TableRow>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn1"
                 android:layout_width="75dp"
                 android:layout_height="75dp" />
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn2"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn3"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn4"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
         </TableRow>
         <TableRow>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn5"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn6"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn7"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn8"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
         </TableRow>
         <TableRow>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn9"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn10"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn11"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn12"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
         </TableRow>
         <TableRow>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn13"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn14"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn15"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
             <ToggleButton
-                android:background="@color/black"
+                android:background="@drawable/cell_button_off"
                 android:id="@+id/btn16"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
@@ -139,7 +140,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/startbutton"
         android:text="Score: "
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:gravity="center"
         android:layout_marginHorizontal="25dp"
         />
@@ -150,6 +151,15 @@
         app:layout_constraintTop_toBottomOf="@+id/scoredisplay"
         android:text="Increase Difficulty"
         android:layout_marginHorizontal="75dp"
+        />
+
+
+
+    <ViewFlipper
+        android:id="@+id/flipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
