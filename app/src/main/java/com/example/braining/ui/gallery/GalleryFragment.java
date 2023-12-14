@@ -1,7 +1,5 @@
 package com.example.braining.ui.gallery;
 
-import static com.example.braining.R.drawable.*;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,14 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
+import com.example.braining.R;
 import com.example.braining.databinding.FragmentGalleryBinding;
-
 import java.util.Random;
 
 public class GalleryFragment extends Fragment {
@@ -47,6 +42,7 @@ public class GalleryFragment extends Fragment {
         Log.d(TAG, "Entered successfully.");
 
 
+
         scoreDisplay = binding.scoredisplay;
 
         start = binding.startbutton;
@@ -61,9 +57,9 @@ public class GalleryFragment extends Fragment {
             final int constY = y;
             toggleButtons[constY].setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (toggleButtons[constY].isChecked()) {
-                    toggleButtons[constY].setBackgroundResource(cell_button);
+                    toggleButtons[constY].setBackgroundResource(R.drawable.cell_button);
                 } else {
-                    toggleButtons[constY].setBackgroundResource(cell_button_off);
+                    toggleButtons[constY].setBackgroundResource(R.drawable.cell_button_off);
                 }
             });
         }
@@ -80,7 +76,6 @@ public class GalleryFragment extends Fragment {
             }
         };
         start.setOnClickListener(v -> {
-            gameDesc.setBackgroundColor(Color.BLUE);
             gameLoop.start();
         });
 
@@ -95,10 +90,10 @@ public class GalleryFragment extends Fragment {
             tb.setChecked(random.nextBoolean());
             if (tb.isChecked()) {
                 Log.d(TAG, "Active Button: " + tb.toString());
-                tb.setBackgroundResource(cell_button);
+                tb.setBackgroundResource(R.drawable.cell_button);
             } else {
                 Log.d(TAG, "Inactive Button: " + tb.toString());
-                tb.setBackgroundResource(cell_button_off);
+                tb.setBackgroundResource(R.drawable.cell_button_off);
 
             }
 
@@ -111,7 +106,7 @@ public class GalleryFragment extends Fragment {
     private void playerTurn() {
         for (ToggleButton tb : toggleButtons) {
             tb.setChecked(false);
-            tb.setBackgroundResource(cell_button_off);
+            tb.setBackgroundResource(R.drawable.cell_button_off);
         }
 
         int potential = 0;
@@ -125,7 +120,7 @@ public class GalleryFragment extends Fragment {
             if (!stored[i]) {
                 int finalI = i;
                 toggleButtons[i].setOnClickListener(v -> {
-                    toggleButtons[finalI].setBackgroundResource(cell_button_wrong_choice);
+                    toggleButtons[finalI].setBackgroundResource(R.drawable.cell_button_wrong_choice);
                     playerLoses();
                 });
             }
