@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
                             Intent intent = new Intent(getContext(), LoginActivity.class);
                             try {
                                 startActivity(intent);
+                                requireActivity().finish();
                             } catch (Exception e) {
                                 Log.e(TAG, e.toString());
                             }
