@@ -4,30 +4,23 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button loginButton;
+    ImageButton loginButton;
 
     FirebaseUser user;
 
@@ -80,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent foo = new Intent(this, MainActivity.class);
             Log.wtf("Login: ", "Main Intent Created");
             startActivity(foo);
+            finish();
         } else {
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button. Otherwise check
