@@ -27,23 +27,19 @@ public class GalleryFragment extends Fragment {
 
     private FragmentGalleryBinding binding;
 
-    TextView scoreDisplay, gameDesc;
 
-    ViewFlipper flipper;
 
     Boolean[] stored;
     ToggleButton[] toggleButtons;
 
     final String TAG = "GAMES: ";
-    Button start, incDifficulty;
+    Button start;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         GalleryViewModel galleryViewModel =
                 new ViewModelProvider(this).get(GalleryViewModel.class);
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        gameDesc = binding.gameexplanation;
-        flipper = binding.flipper;
         stored = new Boolean[16];
 
         Log.d(TAG, "Entered successfully.");
@@ -52,7 +48,6 @@ public class GalleryFragment extends Fragment {
                 binding.btn5, binding.btn6, binding.btn7, binding.btn8,
                 binding.btn9, binding.btn10, binding.btn11, binding.btn12,
                 binding.btn13, binding.btn14, binding.btn15, binding.btn16};
-        scoreDisplay = binding.scoredisplay;
         start = binding.startbutton;
 
         // Start of Game Code
@@ -185,7 +180,6 @@ public class GalleryFragment extends Fragment {
                 potential++;
             }
         }
-        scoreDisplay.setText("Score: " + score + "/" + potential);
     }
 
     @Override

@@ -141,7 +141,7 @@
             </TableRow>
         </TableLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/startbutton"
             android:layout_width="150dp"
             android:layout_height="75dp"
