@@ -3,6 +3,7 @@ package com.example.braining.ui.slideshow;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,26 +59,23 @@ public class SlideshowFragment extends Fragment {
                 "Seasoning"
         };
 
-        // In the list, all of the words are semantically close to the word "Tasty"
-
-
         Random random = new Random();
         String[] duplicates = new String[3];
-        for (int i = 0; i < 3; i++) {
-            duplicates[i] = wordsPrompt[random.nextInt(wordsPrompt.length)];
+        for (int i = 0; i < duplicates.length; i++) {
+            duplicates[i] = wordsPrompt[random.nextInt(duplicates.length)];
         }
         total = new String[duplicates.length + wordsPrompt.length];
         for (int i = 0; i < total.length; i++) {
             if (i < wordsPrompt.length) {
                 total[i] = wordsPrompt[i];
             } else {
-                total[i] = duplicates[i];
+                total[i] = duplicates[i - wordsPrompt.length];
             }
         }
         AtomicInteger idx = new AtomicInteger();
         cycle.setOnClickListener(v -> {
-            if (!(idx.get() == wordsPrompt.length)) {
-                wordDisplay.setText(wordsPrompt[idx.get()]);
+            if (!(idx.get() == total.length)) {
+                wordDisplay.setText(total[idx.get()]);
                 idx.addAndGet(1);
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -89,6 +87,9 @@ public class SlideshowFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         if (answer) {
                             dialog.dismiss();
+                            cycle.setBackgroundColor(Color.GREEN);
+                        } else {
+                            cycle.setBackgroundColor(Color.RED);
                         }
                     }
                 };
@@ -97,6 +98,9 @@ public class SlideshowFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         if (!answer) {
                             dialog.dismiss();
+                            cycle.setBackgroundColor(Color.GREEN);
+                        } else {
+                            cycle.setBackgroundColor(Color.RED);
                         }
                     }
                 };
@@ -105,6 +109,7 @@ public class SlideshowFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        cycle.setBackgroundColor(Color.BLUE);
                     }
                 };
                 builder.setPositiveButton("Yes!", positive);
